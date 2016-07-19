@@ -27,9 +27,9 @@
 "login-view.to-signup-label" = "Don't have an account?";
 
 /* Session service errors */
-"login-error.invalid-credentials.message" = "Wrong email or password. ";
-"signup-error.invalid-credentials.message" = "Invalid credentials. ";
-"network-error.message" = "Network error. ";
+"login-error.invalid-credentials.message" = "Wrong email or password";
+"signup-error.invalid-credentials.message" = "Invalid credentials";
+"network-error.message" = "Network error";
 
 /* LogIn error alert */
 "login-error.alert.title" = "Unable to log in";

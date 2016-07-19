@@ -27,9 +27,9 @@
 "login-view.to-signup-label" = "¿No tienes cuenta?";
 
 /* Errores del servicio de sesión */
-"login-error.invalid-credentials.message" = "Email o contraseña incorrectos. ";
-"signup-error.invalid-credentials.message" = "Credenciales incorrectas. ";
-"network-error.message" = "Error en la conexión. ";
+"login-error.invalid-credentials.message" = "Email o contraseña incorrectos";
+"signup-error.invalid-credentials.message" = "Credenciales incorrectas";
+"network-error.message" = "Error en la conexión";
 
 /* Alerta de error de login */
 "login-error.alert.title" = "Error al intentar ingresar";
