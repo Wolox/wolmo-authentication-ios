@@ -8,7 +8,7 @@
 
 import Foundation
 
-/**
+/*
     Bootstrapper to start the application.
     Takes care of starting the authentication process before the main View Controller of the app when necessary,
     and after the user logs out.
@@ -34,7 +34,7 @@ public class AuthenticationBootstrapper<User: UserType, SessionService: SessionS
         return sessionService.currentUser.value
     }
 
-    /**
+    /*
         Initializes a new authentication bootstrapper with the session service to use for logging in and out and
         the factory method from where to obtain the main View Controller of the application.
 
@@ -64,7 +64,7 @@ public class AuthenticationBootstrapper<User: UserType, SessionService: SessionS
         }
     }
 
-    /**
+    /*
         Bootstraps your project with the authentication framework,
         starting with the authentication project if no user is already logged in the session service.
         Otherwise, it runs your project directly from starting the Main View Controller.
@@ -81,7 +81,7 @@ public class AuthenticationBootstrapper<User: UserType, SessionService: SessionS
 // MARK: - Login Functions
 public extension AuthenticationBootstrapper {
     
-    /**
+    /*
          Creates the login controller to use for starting
          the authentication process.
          
@@ -92,7 +92,7 @@ public extension AuthenticationBootstrapper {
         return LoginController(configuration: configuration)
     }
     
-    /**
+    /*
         Creates the log in credential validator that embodies what must be met
         so as to enable the log in for the user.
 
@@ -105,7 +105,7 @@ public extension AuthenticationBootstrapper {
         return LoginCredentialsValidator()
     }
 
-    /**
+    /*
          Creates the LoginViewModelType to use in the authentication process logic,
          with the LogInCredentialsValidator returned in the function createLogInCredentialsValidator.
 
@@ -120,7 +120,7 @@ public extension AuthenticationBootstrapper {
         return LoginViewModel(sessionService: sessionService, credentialsValidator: createLogInCredentialsValidator())
     }
 
-    /**
+    /*
         Creates login view that conforms to the logInViewType protocol
         and will be use for the login visual.
 
@@ -135,7 +135,7 @@ public extension AuthenticationBootstrapper {
         return view
     }
     
-    /**
+    /*
          Creates the LoginViewDelegate to use in configuring the login view style.
          
          - Returns: A login view delegate that controls the color and font palette
@@ -153,7 +153,7 @@ public extension AuthenticationBootstrapper {
         return DefaultLoginViewDelegate(configuration: _viewConfiguration.loginConfiguration)
     }
 
-    /**
+    /*
         Creates the login view controller delegate that the login controller
         will use to add behaviour to certain events, described in
         LoginControllerDelegate protocol.
@@ -167,7 +167,7 @@ public extension AuthenticationBootstrapper {
         return DefaultLoginControllerDelegate()
     }
     
-    /**
+    /*
          Creates the login view controller configuration that the login controller
          will use to access the login view model to use,
          the login view to display and the transition delegate
@@ -185,7 +185,7 @@ public extension AuthenticationBootstrapper {
             transitionDelegate: createLoginControllerTransitionDelegate())
     }
     
-    /**
+    /*
          Creates the login controller transition delegate that
          the login controller will use to handle transitions
          to other screens (like signup).
@@ -205,7 +205,7 @@ public extension AuthenticationBootstrapper {
 // MARK: - Signup Functions
 public extension AuthenticationBootstrapper {
     
-    /**
+    /*
          Creates the signup controller to use when the
          user selects that option.
          
@@ -215,7 +215,7 @@ public extension AuthenticationBootstrapper {
         return SignupController(configuration: createSignupControllerConfiguration())
     }
     
-    /**
+    /*
          Creates the SignupViewModel to use in the registration process logic,
          with the SignUpCredentialsValidator returned in the function createSignUpCredentialsValidator,
          and the configuration given to the AuthenticationBootstrapper in its AuthenticationViewConfiguration.
@@ -232,7 +232,7 @@ public extension AuthenticationBootstrapper {
                                usernameEnabled: _viewConfiguration.signupConfiguration.usernameEnabled)
     }
     
-    /**
+    /*
          Creates the sign up credential validator that embodies the criteria that must be met
          so as to enable the sign up for the user.
          
@@ -247,7 +247,7 @@ public extension AuthenticationBootstrapper {
         return SignupCredentialsValidator()
     }
     
-    /**
+    /*
          Creates signup view that conforms to the logInViewType protocol
          and will be use for the login visual.
          
@@ -261,7 +261,7 @@ public extension AuthenticationBootstrapper {
         return view
     }
     
-    /**
+    /*
          Creates the SignupViewDelegate to use in configuring the signup view style.
          
          - Returns: A signup view delegate that controls the color and font palette
@@ -279,7 +279,7 @@ public extension AuthenticationBootstrapper {
         return DefaultSignupViewDelegate(configuration: _viewConfiguration.signupConfiguration)
     }
     
-    /**
+    /*
          Creates the signup view controller delegate
          that the signup controller will use to add behaviour
          to certain events, described in SignupControllerDelegate
@@ -294,7 +294,7 @@ public extension AuthenticationBootstrapper {
         return DefaultSignupControllerDelegate()
     }
     
-    /**
+    /*
          Creates the signup view controller configuration that the signup controller
          will use to access the signup view model to use,
          the signup view to display and the transition delegate
@@ -312,7 +312,7 @@ public extension AuthenticationBootstrapper {
             transitionDelegate: createSignupControllerTransitionDelegate())
     }
     
-    /**
+    /*
          Creates the signup controller transition delegate that
          the signup controller will use to handle transitions
          to other screens (like login or terms and services).
@@ -331,7 +331,7 @@ public extension AuthenticationBootstrapper {
 
 // MARK: - RecoverPassword Functions
 public extension AuthenticationBootstrapper {
-    /**
+    /*
          Creates the recover password main controller to use when the
          user selects that option.
          
@@ -348,7 +348,7 @@ public extension AuthenticationBootstrapper {
 
 extension AuthenticationBootstrapper: LoginControllerTransitionDelegate {
     
-    /**
+    /*
          Function that reacts to the user pressing "Sign Up" in the
          login screen.
          It will push the new controller in the navigation controller.
@@ -359,7 +359,7 @@ extension AuthenticationBootstrapper: LoginControllerTransitionDelegate {
         controller.navigationController!.pushViewController(signupController, animated: true)
     }
     
-    /**
+    /*
          Function that reacts to the user pressing "Recover Password"
          in the login screen.
          It will push the new controller in the navigation controller.
@@ -374,7 +374,7 @@ extension AuthenticationBootstrapper: LoginControllerTransitionDelegate {
 
 extension AuthenticationBootstrapper: SignupControllerTransitionDelegate {
     
-    /**
+    /*
          Function that reacts to the user pressing "Log In"
          in the signup screen.
          It will pop the signup controller from the navigation controller,
