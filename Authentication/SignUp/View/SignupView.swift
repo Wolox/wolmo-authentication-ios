@@ -22,6 +22,12 @@ public protocol SignupViewType: Renderable, SignupFormType {
     
 }
 
+public extension SignupViewType {
+    
+    var loginLabel: UILabel? { return .None }
+    
+}
+
 /* Default signup view. */
 internal final class SignupView: UIView, SignupViewType, NibLoadable {
     
@@ -31,13 +37,8 @@ internal final class SignupView: UIView, SignupViewType, NibLoadable {
     @IBOutlet weak var titleLabelOutlet: UILabel! {
         didSet { titleLabel.text = titleText }
     }
-
-    internal var usernameLabel: UILabel?
-    internal var usernameTextField: UITextField?
-    internal var usernameValidationMessageLabel: UILabel?
-    internal var usernameErrorsView: UIView?
     
-    internal var emailLabel: UILabel?
+    internal var usernameErrorsView: UIView?
     
     internal var emailTextField: UITextField { return emailTextFieldOutlet }
     @IBOutlet weak var emailTextFieldOutlet: UITextField! {
@@ -57,8 +58,6 @@ internal final class SignupView: UIView, SignupViewType, NibLoadable {
     }
     
     @IBOutlet weak var emailErrorsView: UIView!
-    
-    internal var passwordLabel: UILabel?
 
     internal var passwordTextField: UITextField { return passwordTextFieldOutlet }
     @IBOutlet weak var passwordTextFieldOutlet: UITextField! {
@@ -83,10 +82,6 @@ internal final class SignupView: UIView, SignupViewType, NibLoadable {
     
     @IBOutlet weak var passwordErrorsView: UIView!
 
-    internal var passwordConfirmLabel: UILabel?
-    internal var passwordConfirmTextField: UITextField?
-    internal var passwordConfirmValidationMessageLabel: UILabel?
-    internal var passwordConfirmVisibilityButton: UIButton?
     internal var passwordConfirmationErrorsView: UIView?
     
     internal var signUpButton: UIButton { return signUpButtonOutlet }
@@ -96,7 +91,6 @@ internal final class SignupView: UIView, SignupViewType, NibLoadable {
             signUpButtonOutlet.setTitle(signUpButtonTitle, forState: .Normal)
         }
     }
-    internal var signUpErrorLabel: UILabel? { return .None }
     
     internal var termsAndServicesLabel: UILabel? { return termsAndServicesLabelOutlet }
     @IBOutlet weak var termsAndServicesLabelOutlet: UILabel! {
