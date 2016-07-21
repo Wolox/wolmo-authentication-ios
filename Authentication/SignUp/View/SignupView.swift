@@ -6,15 +6,23 @@
 //  Copyright © 2016 Wolox. All rights reserved.
 //
 
+/*
+     Represents the minimum required
+     properties from a signup view
+     for it to be compatible with
+     the framework.
+ */
 public protocol SignupViewType: Renderable, SignupFormType {
 
     var titleLabel: UILabel { get }
     
-    var loginLabel: UILabel { get }
+    /* Navigation elements to other screens */
+    var loginLabel: UILabel? { get }
     var loginButton: UIButton { get }
     
 }
 
+/* Default signup view. */
 internal final class SignupView: UIView, SignupViewType, NibLoadable {
     
     internal lazy var delegate: SignupViewDelegate = DefaultSignupViewDelegate()
@@ -99,7 +107,7 @@ internal final class SignupView: UIView, SignupViewType, NibLoadable {
         didSet { termsAndServicesButtonOutlet.setTitle(termsAndServicesButtonTitle, forState: .Normal) }
     }
     
-    internal var loginLabel: UILabel { return loginLabelOutlet }
+    internal var loginLabel: UILabel? { return loginLabelOutlet }
     @IBOutlet weak var loginLabelOutlet: UILabel! {
         didSet { loginLabelOutlet.text = loginLabelText }
     }

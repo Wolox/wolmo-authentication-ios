@@ -6,16 +6,25 @@
 //  Copyright © 2016 Wolox. All rights reserved.
 //
 
+/*
+     Represents the minimum required
+     properties from a login view
+     for it to be compatible with
+     the framework.
+ */
 public protocol LoginViewType: Renderable, LoginFormType {
     
     var logoImageView: UIImageView { get }
     
-    var signupLabel: UILabel { get }
+    /* Navigation elements to other screens */
+    var signupLabel: UILabel? { get }
     var signupButton: UIButton { get }
+    var recoverPasswordLabel: UILabel? { get }
     var recoverPasswordButton: UIButton { get }
     
 }
 
+/* Default login view. */
 internal final class LoginView: UIView, LoginViewType, NibLoadable {
     
     internal lazy var delegate: LoginViewDelegate = DefaultLoginViewDelegate()
@@ -63,16 +72,19 @@ internal final class LoginView: UIView, LoginViewType, NibLoadable {
     
     internal var logInErrorLabel: UILabel? { return .None }
     
-    internal var signupLabel: UILabel { return toSignupLabel }
     @IBOutlet weak var toSignupLabel: UILabel! {
         didSet { toSignupLabel.text = signupLabelText }
     }
+    
+    internal var signupLabel: UILabel? { return .None }
     
     internal var signupButton: UIButton { return signupButtonOutlet }
     @IBOutlet weak var signupButtonOutlet: UIButton! {
         didSet { signupButton.setTitle(signupButtonTitle, forState: .Normal) }
     }
 
+    internal var recoverPasswordLabel: UILabel? { return .None }
+    
     internal var recoverPasswordButton: UIButton { return recoverPasswordButtonOutlet }
     @IBOutlet weak var recoverPasswordButtonOutlet: UIButton! {
         didSet { recoverPasswordButton.setTitle(recoverPasswordButtonTitle, forState: .Normal) }
