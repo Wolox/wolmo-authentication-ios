@@ -6,15 +6,29 @@
 //  Copyright © 2016 Wolox. All rights reserved.
 //
 
+/*
+     Represents the minimum required
+     properties from a signup view
+     for it to be compatible with
+     the framework.
+ */
 public protocol SignupViewType: Renderable, SignupFormType {
 
     var titleLabel: UILabel { get }
     
-    var loginLabel: UILabel { get }
+    /* Navigation elements to other screens */
+    var loginLabel: UILabel? { get }
     var loginButton: UIButton { get }
     
 }
 
+public extension SignupViewType {
+    
+    var loginLabel: UILabel? { return .None }
+    
+}
+
+/* Default signup view. */
 internal final class SignupView: UIView, SignupViewType, NibLoadable {
     
     internal lazy var delegate: SignupViewDelegate = DefaultSignupViewDelegate()
@@ -23,13 +37,31 @@ internal final class SignupView: UIView, SignupViewType, NibLoadable {
     @IBOutlet weak var titleLabelOutlet: UILabel! {
         didSet { titleLabel.text = titleText }
     }
-
-    internal var usernameLabel: UILabel?
-    internal var usernameTextField: UITextField?
-    internal var usernameValidationMessageLabel: UILabel?
-    internal var usernameErrorsView: UIView?
     
-    internal var emailLabel: UILabel?
+    
+    
+    internal var usernameTextField: UITextField? { return usernameTextFieldOutlet }
+    @IBOutlet weak var usernameTextFieldOutlet: UITextField! {
+        didSet { usernameTextFieldOutlet.placeholder = namePlaceholderText }
+    }
+    
+    @IBOutlet weak var usernameTextFieldViewOutlet: UIView! {
+        didSet {
+            usernameTextFieldViewOutlet.layer.borderWidth = 1
+            usernameTextFieldViewOutlet.layer.cornerRadius = 6.0
+        }
+    }
+    
+    internal var usernameValidationMessageLabel: UILabel? { return usernameValidationMessageLabelOutlet }
+    @IBOutlet weak var usernameValidationMessageLabelOutlet: UILabel! {
+        didSet { usernameValidationMessageLabelOutlet.text = " " }
+    }
+    
+    @IBOutlet weak var usernameErrorsView: UIView!
+    @IBOutlet weak var usernameView: UIView!
+    @IBOutlet weak var usernameHeightConstraint: NSLayoutConstraint!
+    
+    
     
     internal var emailTextField: UITextField { return emailTextFieldOutlet }
     @IBOutlet weak var emailTextFieldOutlet: UITextField! {
@@ -49,9 +81,9 @@ internal final class SignupView: UIView, SignupViewType, NibLoadable {
     }
     
     @IBOutlet weak var emailErrorsView: UIView!
-    
-    internal var passwordLabel: UILabel?
 
+    
+    
     internal var passwordTextField: UITextField { return passwordTextFieldOutlet }
     @IBOutlet weak var passwordTextFieldOutlet: UITextField! {
         didSet { passwordTextFieldOutlet.placeholder = passwordPlaceholderText }
@@ -75,11 +107,33 @@ internal final class SignupView: UIView, SignupViewType, NibLoadable {
     
     @IBOutlet weak var passwordErrorsView: UIView!
 
-    internal var passwordConfirmLabel: UILabel?
-    internal var passwordConfirmTextField: UITextField?
-    internal var passwordConfirmValidationMessageLabel: UILabel?
-    internal var passwordConfirmVisibilityButton: UIButton?
-    internal var passwordConfirmationErrorsView: UIView?
+    
+    
+    internal var passwordConfirmTextField: UITextField? { return passwordConfirmTextFieldOutlet }
+    @IBOutlet weak var passwordConfirmTextFieldOutlet: UITextField! {
+        didSet { passwordConfirmTextFieldOutlet.placeholder = confirmPasswordPlaceholderText }
+    }
+    @IBOutlet weak var pswdConfirmTextFieldAndButtonViewOutlet: UIView! {
+        didSet {
+            pswdConfirmTextFieldAndButtonViewOutlet.layer.borderWidth = 1
+            pswdConfirmTextFieldAndButtonViewOutlet.layer.cornerRadius = 6.0
+        }
+    }
+    
+    internal var passwordConfirmValidationMessageLabel: UILabel? { return pswdConfirmValidationMessageLabelOutlet }
+    @IBOutlet weak var pswdConfirmValidationMessageLabelOutlet: UILabel! {
+        didSet { pswdConfirmValidationMessageLabelOutlet.text = " " }
+    }
+    
+    internal var passwordConfirmVisibilityButton: UIButton? { return passwordConfirmVisibilityButtonOutlet }
+    @IBOutlet weak var passwordConfirmVisibilityButtonOutlet: UIButton! {
+        didSet { passwordConfirmVisibilityButtonOutlet.hidden = true }
+    }
+    
+    @IBOutlet weak var passwordConfirmationErrorsView: UIView!
+    @IBOutlet weak var passwordConfirmationView: UIView!
+    @IBOutlet weak var passwordConfirmationHeightConstraint: NSLayoutConstraint!
+    
     
     internal var signUpButton: UIButton { return signUpButtonOutlet }
     @IBOutlet weak var signUpButtonOutlet: UIButton! {
@@ -88,25 +142,18 @@ internal final class SignupView: UIView, SignupViewType, NibLoadable {
             signUpButtonOutlet.setTitle(signUpButtonTitle, forState: .Normal)
         }
     }
-    internal var signUpErrorLabel: UILabel? { return .None }
     
-    internal var termsAndServicesLabel: UILabel? { return termsAndServicesLabelOutlet }
-    @IBOutlet weak var termsAndServicesLabelOutlet: UILabel! {
-        didSet { termsAndServicesLabelOutlet.text = termsAndServicesLabelText }
-    }
-    internal var termsAndServicesButton: UIButton { return termsAndServicesButtonOutlet }
-    @IBOutlet weak var termsAndServicesButtonOutlet: UIButton! {
-        didSet { termsAndServicesButtonOutlet.setTitle(termsAndServicesButtonTitle, forState: .Normal) }
-    }
+    internal var termsAndServicesTextView: UITextView { return termsAndServicesTextViewOutlet }
+    @IBOutlet weak var termsAndServicesTextViewOutlet: UITextView!
     
-    internal var loginLabel: UILabel { return loginLabelOutlet }
+    internal var loginLabel: UILabel? { return loginLabelOutlet }
     @IBOutlet weak var loginLabelOutlet: UILabel! {
         didSet { loginLabelOutlet.text = loginLabelText }
     }
     
     internal var loginButton: UIButton { return loginButtonOutlet }
     @IBOutlet weak var loginButtonOutlet: UIButton! {
-        didSet { loginButtonOutlet.setTitle(loginButtonTitle, forState: .Normal) }
+        didSet { loginButtonOutlet.setUnderlinedTitle(loginButtonTitle) }
     }
     
     internal var usernameTextFieldValid = false { didSet { usernameTextFieldValidWasSet() } }
@@ -126,6 +173,18 @@ internal final class SignupView: UIView, SignupViewType, NibLoadable {
     internal var signUpButtonEnabled = false { didSet { signUpButtonEnabledWasSet() } }
     internal var signUpButtonPressed = false { didSet { signUpButtonPressedWasSet() } }
     
+    
+    internal func hideUsernameElements() {
+        usernameHeightConstraint.active = false
+        usernameView.hidden = true
+    }
+    
+    
+    internal func hidePasswordConfirmElements() {
+        passwordConfirmationHeightConstraint.active = false
+        passwordConfirmationView.hidden = true
+    }
+    
     internal func render() {
         usernameTextFieldValid = true
         emailTextFieldValid = true
@@ -143,6 +202,7 @@ internal final class SignupView: UIView, SignupViewType, NibLoadable {
         passwordVisible = false
         confirmationPasswordVisible = false
         
+        setTermsAndConditionsText()
         delegate.configureView(self)
     }
     
@@ -155,22 +215,23 @@ private extension SignupView {
             let color: CGColor
             if usernameTextFieldValid {
                 color = delegate.colorPalette.textfieldsNormal.CGColor
-                usernameErrorsView?.hidden = true
+                usernameErrorsView.hidden = true
             } else {
                 color = delegate.colorPalette.textfieldsError.CGColor
-                usernameErrorsView?.hidden = false
+                usernameErrorsView.hidden = false
             }
-            usernameTextField?.layer.borderColor = color
+            usernameTextFieldViewOutlet.layer.borderColor = color
         } else {
-            usernameErrorsView?.hidden = true
+            usernameErrorsView.hidden = true
         }
     }
     
     private func usernameTextFieldSelectedWasSet() {
         if usernameTextFieldSelected {
-            usernameTextField?.layer.borderColor = delegate.colorPalette.textfieldsSelected.CGColor
-            usernameErrorsView?.hidden = true
+            usernameTextFieldOutlet.layer.borderColor = delegate.colorPalette.textfieldsSelected.CGColor
+            usernameErrorsView.hidden = true
         } else {
+            // To trigger the Valid's didSet.
             let valid = usernameTextFieldValid
             usernameTextFieldValid = valid
         }
@@ -197,6 +258,7 @@ private extension SignupView {
             emailTextFieldViewOutlet.layer.borderColor = delegate.colorPalette.textfieldsSelected.CGColor
             emailErrorsView.hidden = true
         } else {
+            // To trigger the Valid's didSet.
             let valid = emailTextFieldValid
             emailTextFieldValid = valid
         }
@@ -223,6 +285,7 @@ private extension SignupView {
             passwordTextFieldAndButtonViewOutlet.layer.borderColor = delegate.colorPalette.textfieldsSelected.CGColor
             passwordErrorsView.hidden = true
         } else {
+            // To trigger the Valid's didSet.
             let valid = passwordTextFieldValid
             passwordTextFieldValid = valid
         }
@@ -242,22 +305,23 @@ private extension SignupView {
             let color: CGColor
             if passwordConfirmationTextFieldValid {
                 color = delegate.colorPalette.textfieldsNormal.CGColor
-                passwordConfirmationErrorsView?.hidden = true
+                passwordConfirmationErrorsView.hidden = true
             } else {
                 color = delegate.colorPalette.textfieldsError.CGColor
-                passwordConfirmationErrorsView?.hidden = false
+                passwordConfirmationErrorsView.hidden = false
             }
-            passwordConfirmTextField?.layer.borderColor = color
+            pswdConfirmTextFieldAndButtonViewOutlet.layer.borderColor = color
         } else {
-            passwordConfirmationErrorsView?.hidden = true
+            passwordConfirmationErrorsView.hidden = true
         }
     }
     
     private func passwordConfirmationTextFieldSelectedWasSet() {
         if passwordConfirmationTextFieldSelected {
-            passwordConfirmTextField?.layer.borderColor = delegate.colorPalette.textfieldsSelected.CGColor
-            passwordConfirmationErrorsView?.hidden = true
+            passwordConfirmTextFieldOutlet.layer.borderColor = delegate.colorPalette.textfieldsSelected.CGColor
+            passwordConfirmationErrorsView.hidden = true
         } else {
+            // To trigger the Valid's didSet.
             let valid = passwordConfirmationTextFieldValid
             passwordConfirmationTextFieldValid = valid
         }
@@ -288,72 +352,59 @@ private extension SignupView {
         passwordConfirmationErrorsView?.hidden = true
     }
     
+    private func setTermsAndConditionsText() {
+        let textString = NSString(string: termsAndServicesText)
+        let textWithLinks = NSMutableAttributedString(string: textString as String)
+        
+        let termsString = termsAndServicesLinkText
+        let termsURL = NSURL(string: termsAndServicesLinkURL)!
+        let termsRange = textString.rangeOfString(termsString)
+        
+        textWithLinks.addAttribute(NSLinkAttributeName, value: termsURL, range: termsRange)
+        
+        termsAndServicesTextView.attributedText = textWithLinks
+        termsAndServicesTextView.linkTextAttributes = [NSForegroundColorAttributeName: delegate.colorPalette.links,
+                                                       NSUnderlineColorAttributeName: delegate.colorPalette.links,
+                                                       NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleSingle.rawValue]
+        termsAndServicesTextView.textAlignment = .Center
+    }
+    
 }
 
 public extension SignupViewType {
     
-    public var titleText: String {
-        return "signup-view.title".localized
-    }
+    public var titleText: String { return "signup-view.title".localized }
     
-    public var nameText: String {
-        return "signup-view.name".localized
-    }
+    public var nameText: String { return "signup-view.name".localized }
     
-    public var emailText: String {
-        return "signup-view.email".localized
-    }
+    public var emailText: String { return "signup-view.email".localized }
     
-    public var passwordText: String {
-        return "signup-view.password".localized
-    }
+    public var passwordText: String { return "signup-view.password".localized }
     
-    public var confirmPasswordText: String {
-        return "signup-view.confirm-password".localized
-    }
+    public var confirmPasswordText: String { return "signup-view.confirm-password".localized }
     
-    public var namePlaceholderText: String {
-        return "signup-view.name-placeholder".localized
-    }
+    public var namePlaceholderText: String { return "signup-view.name-placeholder".localized}
     
-    public var emailPlaceholderText: String {
-        return "signup-view.email-placeholder".localized
-    }
+    public var emailPlaceholderText: String { return "signup-view.email-placeholder".localized }
     
-    public var passwordPlaceholderText: String {
-        return "signup-view.password-placeholder".localized
-    }
+    public var passwordPlaceholderText: String { return "signup-view.password-placeholder".localized }
     
-    public var confirmPasswordPlaceholderText: String {
-        return "signup-view.confirm-password-placeholder".localized
-    }
+    public var confirmPasswordPlaceholderText: String { return "signup-view.confirm-password-placeholder".localized }
     
-    public var passwordVisibilityButtonTitle: String {
-        return ("text-visibility-button-title." + (passwordVisible ? "false" : "true")).localized
-    }
+    public var passwordVisibilityButtonTitle: String { return ("text-visibility-button-title." + (passwordVisible ? "false" : "true")).localized }
     
-    public var confirmPasswordVisibilityButtonTitle: String {
-        return ("text-visibility-button-title." + (confirmationPasswordVisible ? "false" : "true")).localized
-    }
+    public var confirmPasswordVisibilityButtonTitle: String { return ("text-visibility-button-title." + (confirmationPasswordVisible ? "false" : "true")).localized }
     
-    public var termsAndServicesLabelText: String {
-        return "signup-view.terms-and-services.label-text".localized
-    }
+    public var termsAndServicesText: String { return "signup-view.terms-and-services.text".localized }
     
-    public var termsAndServicesButtonTitle: String {
-        return "signup-view.terms-and-services.button-title".localized
-    }
+    public var termsAndServicesLinkText: String { return "signup-view.terms-and-services.link-text".localized }
     
-    public var signUpButtonTitle: String {
-        return "signup-view.signup-button-title".localized
-    }
+    public var termsAndServicesLinkURL: String { return "signup-view.terms-and-services.link-url".localized }
     
-    public var loginLabelText: String {
-        return "signup-view.login.label-text".localized
-    }
+    public var signUpButtonTitle: String { return "signup-view.signup-button-title".localized }
     
-    public var loginButtonTitle: String {
-        return "signup-view.login.button-title".localized
-    }
+    public var loginLabelText: String { return "signup-view.login.label-text".localized }
+    
+    public var loginButtonTitle: String { return "signup-view.login.button-title".localized }
     
 }

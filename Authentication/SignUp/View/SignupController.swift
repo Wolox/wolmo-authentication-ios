@@ -8,6 +8,21 @@
 
 import ReactiveCocoa
 
+
+/*
+     Signup View Controller that takes care of managing the signup, from
+     validating all fields, to binding a signup view to the view model
+     and informing the signup controller delegate when certain events 
+     occur for it to act upon them.
+     If there are more than one validation error in a field, the controller
+     presents only the first one in the errors label.
+     
+     If wanting to use the default SignupController with some customization,
+     you should not override the `createSignupController` method of the Bootstrapper,
+     but all the others that provide the elements this controller uses. (That is to say,
+     `createSignupView`, `createSignupViewModel`, `createSignupControllerDelegate`
+     and/or `createSignupControllerConfiguration`)
+ */
 public final class SignupController: UIViewController {
     
     private let _viewModel: SignupViewModelType
@@ -23,10 +38,15 @@ public final class SignupController: UIViewController {
     private let _activeTextField = MutableProperty<UITextField?>(.None)
 
     
-    // Internal initializer, because if wanting to use the  default SignupController,
-    // you should not override the `createSignupController` method, but all the others 
-    // that provide the elements this controller uses. (That is to say,
-    // `createSignupView`, `createSignupViewModel`, `createSignupControllerDelegate`)
+    /*
+         Initializes a signup controller with the configuration to use.
+         
+         Parameters:
+         - configuration: A signup controller configuration with all
+         elements needed to operate.
+         
+         - Returns: A valid signup view controller ready to use.
+     */
     internal init(configuration: SignupControllerConfiguration) {
         _viewModel = configuration.viewModel
         _signupViewFactory = configuration.viewFactory
@@ -66,6 +86,8 @@ private extension SignupController {
         bindEmailElements()
         bindPasswordElements()
         bindButtons()
+        checkTextFieldsSelection()
+        hideUnselectedTextfields()
         setTextfieldOrder()
         
         _viewModel.signUpExecuting.observeNext { [unowned self] executing in
@@ -87,6 +109,7 @@ private extension SignupController {
                 } else {
                     self._delegate.didFailNameValidation(self, with: errors)
                 }
+                self.signupView.usernameTextFieldValid = errors.isEmpty
             }
             if let nameValidationMessageLabel = signupView.usernameValidationMessageLabel {
                 nameValidationMessageLabel.rex_text <~ _viewModel.nameValidationErrors.signal.map { $0.first ?? " " }
@@ -103,6 +126,7 @@ private extension SignupController {
             } else {
                 self._delegate.didFailEmailValidation(self, with: errors)
             }
+            self.signupView.emailTextFieldValid = errors.isEmpty
         }
         if let emailValidationMessageLabel = signupView.emailValidationMessageLabel {
             emailValidationMessageLabel.rex_text <~ _viewModel.emailValidationErrors.signal.map { $0.first ?? " " }
@@ -120,6 +144,7 @@ private extension SignupController {
             } else {
                 self._delegate.didFailPasswordValidation(self, with: errors)
             }
+            self.signupView.passwordTextFieldValid = errors.isEmpty
         }
         if let passwordValidationMessageLabel = signupView.passwordValidationMessageLabel {
             passwordValidationMessageLabel.rex_text <~ _viewModel.passwordValidationErrors.signal.map { $0.first ?? " " }
@@ -143,6 +168,7 @@ private extension SignupController {
                 } else {
                     self._delegate.didFailPasswordConfirmationValidation(self, with: errors)
                 }
+                self.signupView.passwordConfirmationTextFieldValid = errors.isEmpty
             }
             if let passwordConfirmValidationMessageLabel = signupView.passwordConfirmValidationMessageLabel {
                 passwordConfirmValidationMessageLabel.rex_text <~ _viewModel.passwordConfirmationValidationErrors.signal.map { $0.first ?? " " }
@@ -165,12 +191,32 @@ private extension SignupController {
     private func setTextfieldOrder() {
         signupView.usernameTextField?.nextTextField = signupView.emailTextField
         signupView.emailTextField.nextTextField = signupView.passwordTextField
-        signupView.passwordTextField.nextTextField = signupView.passwordConfirmTextField ?? signupView.usernameTextField ?? signupView.emailTextField
-        signupView.passwordConfirmTextField?.nextTextField = signupView.usernameTextField ?? signupView.emailTextField
+        signupView.passwordTextField.nextTextField = _viewModel.passwordConfirmationEnabled ? signupView.passwordConfirmTextField
+            : (_viewModel.usernameEnabled ? signupView.usernameTextField : signupView.emailTextField)
+        signupView.passwordConfirmTextField?.nextTextField = _viewModel.usernameEnabled ? signupView.usernameTextField : signupView.emailTextField
+        lastTextField.returnKeyType = .Go
     }
     
     private var lastTextField: UITextField {
-        return signupView.passwordConfirmTextField ?? signupView.passwordTextField
+        return _viewModel.passwordConfirmationEnabled ? signupView.passwordConfirmTextField! : signupView.passwordTextField
+    }
+    
+    private func hideUnselectedTextfields() {
+        if !_viewModel.usernameEnabled {
+            signupView.hideUsernameElements()
+        }
+        if !_viewModel.passwordConfirmationEnabled {
+            signupView.hidePasswordConfirmElements()
+        }
+    }
+    
+    private func checkTextFieldsSelection() {
+        if _viewModel.usernameEnabled && signupView.usernameTextField == .None {
+            //fatalError?
+        }
+        if _viewModel.passwordConfirmationEnabled && signupView.passwordConfirmTextField == .None {
+            //fatalError?
+        }
     }
     
 }
