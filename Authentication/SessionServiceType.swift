@@ -89,7 +89,7 @@ public protocol SessionServiceType {
          Avoid sending a .LogIn event as well.
          Don't forget to update the currentUser.
     */
-    func signUp(name: String, email: Email, password: String) -> SignalProducer<User, SessionServiceError>
+    func signUp(name: String?, email: Email, password: String) -> SignalProducer<User, SessionServiceError>
     
 }
 
