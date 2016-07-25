@@ -164,8 +164,8 @@
                                     </constraints>
                                     <variation key="default">
                                         <mask key="constraints">
-                                            <exclude reference="ddn-xX-4dq"/>
                                             <exclude reference="Mqe-LV-aYE"/>
+                                            <exclude reference="ddn-xX-4dq"/>
                                         </mask>
                                     </variation>
                                 </view>
