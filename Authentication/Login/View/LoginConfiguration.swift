@@ -6,6 +6,7 @@
 //  Copyright © 2016 Wolox. All rights reserved.
 //
 
+
 /*
     Protocol for handling transition events occured during login.
 */

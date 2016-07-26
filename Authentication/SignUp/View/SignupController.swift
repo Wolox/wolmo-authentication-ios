@@ -25,12 +25,12 @@ import ReactiveCocoa
  */
 public final class SignupController: UIViewController {
     
+    public lazy var signupView: SignupViewType = self._signupViewFactory()
+    
     private let _viewModel: SignupViewModelType
     private let _signupViewFactory: () -> SignupViewType
     private let _delegate: SignupControllerDelegate
     private let _transitionDelegate: SignupControllerTransitionDelegate
-    
-    public lazy var signupView: SignupViewType = self._signupViewFactory()
     
     private let _notificationCenter: NSNotificationCenter = .defaultCenter()
     private var _disposable = CompositeDisposable()
@@ -48,9 +48,9 @@ public final class SignupController: UIViewController {
          - Returns: A valid signup view controller ready to use.
      */
     internal init(configuration: SignupControllerConfiguration) {
+        _delegate = configuration.delegate
         _viewModel = configuration.viewModel
         _signupViewFactory = configuration.viewFactory
-        _delegate = configuration.delegate
         _transitionDelegate = configuration.transitionDelegate
         super.init(nibName: nil, bundle: nil)
         addKeyboardObservers()
@@ -71,6 +71,7 @@ public final class SignupController: UIViewController {
     
     public override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBarHidden = true
         signupView.render()
         bindViewModel()
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
@@ -184,7 +185,7 @@ private extension SignupController {
     private func bindButtons() {
         signupView.signUpButton.rex_pressed.value = _viewModel.signUpCocoaAction
         signupView.signUpButton.rex_enabled.signal.observeNext { [unowned self] in self.signupView.signUpButtonEnabled = $0 }
-        //TODO: signupView.termsAndServicesButton -> Presents the terms and services
+        signupView.termsAndServicesButton.setAction { [unowned self] _ in self._transitionDelegate.onTermsAndServices(self) }
         signupView.loginButton.setAction { [unowned self] _ in self._transitionDelegate.onLogin(self) }
     }
     

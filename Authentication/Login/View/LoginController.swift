@@ -40,6 +40,7 @@ public final class LoginController: UIViewController {
     private let _keyboardDisplayed = MutableProperty(false)
     private let _activeField = MutableProperty<UITextField?>(.None)
     
+    
     /*
         Initializes a login controller with the configuration to use.
      
@@ -73,9 +74,9 @@ public final class LoginController: UIViewController {
     
     public override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBarHidden = true
         loginView.render()
         bindViewModel()
-        navigationController?.navigationBarHidden = true
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapRecognizer)
     }

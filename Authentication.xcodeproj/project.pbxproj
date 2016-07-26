@@ -27,10 +27,7 @@
 		CE11A7011C9848AE002C9779 /* LoginControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE11A7001C9848AE002C9779 /* LoginControllerDelegate.swift */; };
 		CE2361321CAD97C200AFB6F2 /* LoginViewConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2361311CAD97C200AFB6F2 /* LoginViewConfiguration.swift */; };
 		CE89A25C1CAED14700E1903B /* SignupViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE89A25B1CAED14700E1903B /* SignupViewDelegate.swift */; };
-		CE89A2651CAED37C00E1903B /* FontPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE89A2631CAED37C00E1903B /* FontPalette.swift */; };
 		CE89A2671CAEDE4F00E1903B /* SignupViewConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE89A2661CAEDE4F00E1903B /* SignupViewConfiguration.swift */; };
-		CE89A2691CAEDF0900E1903B /* AuthenticationViewConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE89A2681CAEDF0900E1903B /* AuthenticationViewConfiguration.swift */; };
-		CE89A26F1CAF019D00E1903B /* ColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE89A26E1CAF019D00E1903B /* ColorPalette.swift */; };
 		CE8B03331D393B9400917570 /* SignupConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8B03321D393B9400917570 /* SignupConfiguration.swift */; };
 		CE9AC3C41C8F2F9E0012D20B /* SignupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9AC3C31C8F2F9E0012D20B /* SignupController.swift */; };
 		CE9AC3C61C8F34A70012D20B /* AuthenticationBootstrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9AC3C51C8F34A70012D20B /* AuthenticationBootstrapper.swift */; };
@@ -60,6 +57,11 @@
 		CED698241D47D4E000C4EABC /* MaxLengthValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED698191D47D4E000C4EABC /* MaxLengthValidatorTests.swift */; };
 		CED698251D47D4E000C4EABC /* MinLengthValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED6981A1D47D4E000C4EABC /* MinLengthValidatorTests.swift */; };
 		CED698261D47D4E000C4EABC /* NonEmptyValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED6981B1D47D4E000C4EABC /* NonEmptyValidatorTests.swift */; };
+		CED6982A1D47D5B500C4EABC /* TermsAndServicesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED698281D47D5B500C4EABC /* TermsAndServicesController.swift */; };
+		CED6982B1D47D5B500C4EABC /* TermsAndServicesControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED698291D47D5B500C4EABC /* TermsAndServicesControllerDelegate.swift */; };
+		CED698301D47D7B800C4EABC /* AuthenticationViewConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED6982D1D47D7B800C4EABC /* AuthenticationViewConfiguration.swift */; };
+		CED698311D47D7B800C4EABC /* ColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED6982E1D47D7B800C4EABC /* ColorPalette.swift */; };
+		CED698321D47D7B800C4EABC /* FontPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED6982F1D47D7B800C4EABC /* FontPalette.swift */; };
 		CEE226A61C9C3CEA005EB279 /* RecoverPasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE226A51C9C3CEA005EB279 /* RecoverPasswordController.swift */; };
 		CEE226A71C9C4011005EB279 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CEE226A91C9C4011005EB279 /* Localizable.strings */; };
 		CEE226AA1C9C4018005EB279 /* Spanish(es).strings in Resources */ = {isa = PBXBuildFile; fileRef = CEE226AC1C9C4018005EB279 /* Spanish(es).strings */; };
@@ -149,10 +151,7 @@
 		CE11A7001C9848AE002C9779 /* LoginControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginControllerDelegate.swift; path = LogIn/View/LoginControllerDelegate.swift; sourceTree = "<group>"; };
 		CE2361311CAD97C200AFB6F2 /* LoginViewConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewConfiguration.swift; path = Login/View/LoginViewConfiguration.swift; sourceTree = "<group>"; };
 		CE89A25B1CAED14700E1903B /* SignupViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SignupViewDelegate.swift; path = SignUp/View/SignupViewDelegate.swift; sourceTree = "<group>"; };
-		CE89A2631CAED37C00E1903B /* FontPalette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FontPalette.swift; path = Configuration/FontPalette.swift; sourceTree = "<group>"; };
 		CE89A2661CAEDE4F00E1903B /* SignupViewConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SignupViewConfiguration.swift; path = SignUp/View/SignupViewConfiguration.swift; sourceTree = "<group>"; };
-		CE89A2681CAEDF0900E1903B /* AuthenticationViewConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AuthenticationViewConfiguration.swift; path = Configuration/AuthenticationViewConfiguration.swift; sourceTree = "<group>"; };
-		CE89A26E1CAF019D00E1903B /* ColorPalette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ColorPalette.swift; path = Configuration/ColorPalette.swift; sourceTree = "<group>"; };
 		CE8B03321D393B9400917570 /* SignupConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SignupConfiguration.swift; path = SignUp/View/SignupConfiguration.swift; sourceTree = "<group>"; };
 		CE9AC3C31C8F2F9E0012D20B /* SignupController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SignupController.swift; path = SignUp/View/SignupController.swift; sourceTree = "<group>"; };
 		CE9AC3C51C8F34A70012D20B /* AuthenticationBootstrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationBootstrapper.swift; sourceTree = "<group>"; };
@@ -183,6 +182,11 @@
 		CED698191D47D4E000C4EABC /* MaxLengthValidatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaxLengthValidatorTests.swift; sourceTree = "<group>"; };
 		CED6981A1D47D4E000C4EABC /* MinLengthValidatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MinLengthValidatorTests.swift; sourceTree = "<group>"; };
 		CED6981B1D47D4E000C4EABC /* NonEmptyValidatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NonEmptyValidatorTests.swift; sourceTree = "<group>"; };
+		CED698281D47D5B500C4EABC /* TermsAndServicesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsAndServicesController.swift; sourceTree = "<group>"; };
+		CED698291D47D5B500C4EABC /* TermsAndServicesControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsAndServicesControllerDelegate.swift; sourceTree = "<group>"; };
+		CED6982D1D47D7B800C4EABC /* AuthenticationViewConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationViewConfiguration.swift; sourceTree = "<group>"; };
+		CED6982E1D47D7B800C4EABC /* ColorPalette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPalette.swift; sourceTree = "<group>"; };
+		CED6982F1D47D7B800C4EABC /* FontPalette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontPalette.swift; sourceTree = "<group>"; };
 		CEE226A51C9C3CEA005EB279 /* RecoverPasswordController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecoverPasswordController.swift; path = RecoverPassword/RecoverPasswordController.swift; sourceTree = "<group>"; };
 		CEE226A81C9C4011005EB279 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CEE226AB1C9C4018005EB279 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = "es.lproj/Spanish(es).strings"; sourceTree = "<group>"; };
@@ -281,9 +285,9 @@
 				CEE226A91C9C4011005EB279 /* Localizable.strings */,
 				CEE226AC1C9C4018005EB279 /* Spanish(es).strings */,
 				CEE226A41C9C3CB4005EB279 /* RecoverPassword */,
-				CE89A2611CAED30100E1903B /* Configuration */,
 				CE040D721C99CD7D0020DDE0 /* Validators */,
 				CED698071D47D4A600C4EABC /* Models */,
+				CED6982C1D47D7B800C4EABC /* ViewConfiguration */,
 				CEBF66B51C8DD3AB006EE090 /* Login */,
 				CEBF66B41C8DD3A4006EE090 /* Signup */,
 				9D72AA071C8DC7EA00BB4082 /* Authentication.h */,
@@ -323,16 +327,6 @@
 			name = Validators;
 			sourceTree = "<group>";
 		};
-		CE89A2611CAED30100E1903B /* Configuration */ = {
-			isa = PBXGroup;
-			children = (
-				CE89A26E1CAF019D00E1903B /* ColorPalette.swift */,
-				CE89A2631CAED37C00E1903B /* FontPalette.swift */,
-				CE89A2681CAEDF0900E1903B /* AuthenticationViewConfiguration.swift */,
-			);
-			name = Configuration;
-			sourceTree = "<group>";
-		};
 		CE9AC3C01C8F2F5C0012D20B /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -361,6 +355,7 @@
 			children = (
 				CE9AC3C11C8F2F650012D20B /* ViewModel */,
 				CE9AC3C01C8F2F5C0012D20B /* View */,
+				CED698271D47D5B500C4EABC /* TermsAndServices */,
 			);
 			name = Signup;
 			sourceTree = "<group>";
@@ -443,6 +438,26 @@
 				CED6981B1D47D4E000C4EABC /* NonEmptyValidatorTests.swift */,
 			);
 			path = Validators;
+			sourceTree = "<group>";
+		};
+		CED698271D47D5B500C4EABC /* TermsAndServices */ = {
+			isa = PBXGroup;
+			children = (
+				CED698281D47D5B500C4EABC /* TermsAndServicesController.swift */,
+				CED698291D47D5B500C4EABC /* TermsAndServicesControllerDelegate.swift */,
+			);
+			name = TermsAndServices;
+			path = SignUp/TermsAndServices;
+			sourceTree = "<group>";
+		};
+		CED6982C1D47D7B800C4EABC /* ViewConfiguration */ = {
+			isa = PBXGroup;
+			children = (
+				CED6982D1D47D7B800C4EABC /* AuthenticationViewConfiguration.swift */,
+				CED6982E1D47D7B800C4EABC /* ColorPalette.swift */,
+				CED6982F1D47D7B800C4EABC /* FontPalette.swift */,
+			);
+			path = ViewConfiguration;
 			sourceTree = "<group>";
 		};
 		CEE226A41C9C3CB4005EB279 /* RecoverPassword */ = {
@@ -672,12 +687,13 @@
 			files = (
 				CE89A25C1CAED14700E1903B /* SignupViewDelegate.swift in Sources */,
 				CE89A2671CAEDE4F00E1903B /* SignupViewConfiguration.swift in Sources */,
+				CED6982A1D47D5B500C4EABC /* TermsAndServicesController.swift in Sources */,
 				CE9AC3C41C8F2F9E0012D20B /* SignupController.swift in Sources */,
 				CEBF66C81C8DFCB1006EE090 /* LoginViewModel.swift in Sources */,
 				CEE4048D1C9A040B00AB70B3 /* EmailValidator.swift in Sources */,
-				CE89A26F1CAF019D00E1903B /* ColorPalette.swift in Sources */,
 				CEE226B51C9C7692005EB279 /* SignupView.swift in Sources */,
 				CEB4E4F31CAAEB51002FE023 /* SignupControllerDelegate.swift in Sources */,
+				CED698321D47D7B800C4EABC /* FontPalette.swift in Sources */,
 				CEBF66BE1C8DDA9E006EE090 /* SessionServiceType.swift in Sources */,
 				CEA65B841D33F9960065283E /* ViewProtocols.swift in Sources */,
 				CEE226B71C9C7FA4005EB279 /* LoginViewDelegate.swift in Sources */,
@@ -685,9 +701,9 @@
 				CE040D7A1C99CEE10020DDE0 /* LengthValidators.swift in Sources */,
 				CEE226A61C9C3CEA005EB279 /* RecoverPasswordController.swift in Sources */,
 				CED6980A1D47D4A600C4EABC /* Email.swift in Sources */,
-				CE89A2651CAED37C00E1903B /* FontPalette.swift in Sources */,
-				CE89A2691CAEDF0900E1903B /* AuthenticationViewConfiguration.swift in Sources */,
+				CED6982B1D47D5B500C4EABC /* TermsAndServicesControllerDelegate.swift in Sources */,
 				CEE226B31C9C75CC005EB279 /* SignupViewModel.swift in Sources */,
+				CED698311D47D7B800C4EABC /* ColorPalette.swift in Sources */,
 				CEBF66CE1C8E089D006EE090 /* LoginController.swift in Sources */,
 				CE8B03331D393B9400917570 /* SignupConfiguration.swift in Sources */,
 				CE2361321CAD97C200AFB6F2 /* LoginViewConfiguration.swift in Sources */,
@@ -702,6 +718,7 @@
 				CEB119181CA2E43B0049DABF /* LoginConfiguration.swift in Sources */,
 				CE9AC3C61C8F34A70012D20B /* AuthenticationBootstrapper.swift in Sources */,
 				CEBF66CA1C8DFFF2006EE090 /* LoginCredentialsValidator.swift in Sources */,
+				CED698301D47D7B800C4EABC /* AuthenticationViewConfiguration.swift in Sources */,
 				CED6980B1D47D4A600C4EABC /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
