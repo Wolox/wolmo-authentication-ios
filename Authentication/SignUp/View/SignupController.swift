@@ -185,9 +185,14 @@ private extension SignupController {
     private func bindButtons() {
         signupView.signUpButton.rex_pressed.value = _viewModel.signUpCocoaAction
         signupView.signUpButton.rex_enabled.signal.observeNext { [unowned self] in self.signupView.signUpButtonEnabled = $0 }
-        signupView.termsAndServicesButton.setAction { [unowned self] _ in self._transitionDelegate.onTermsAndServices(self) }
         signupView.loginButton.setAction { [unowned self] _ in self._transitionDelegate.onLogin(self) }
+        bindTermsAndServices()
     }
+    
+    private func bindTermsAndServices() {
+        signupView.termsAndServicesTextView.delegate = self
+    }
+
     
     private func setTextfieldOrder() {
         signupView.usernameTextField?.nextTextField = signupView.emailTextField
@@ -258,6 +263,15 @@ extension SignupController: UITextFieldDelegate {
             signupView.passwordConfirmationTextFieldSelected = false
         }
         _activeTextField.value = .None
+    }
+    
+}
+
+extension SignupController: UITextViewDelegate {
+    
+    public func textView(textView: UITextView, shouldInteractWithURL URL: NSURL, inRange characterRange: NSRange) -> Bool {
+        _transitionDelegate.onTermsAndServices(self)
+        return false
     }
     
 }

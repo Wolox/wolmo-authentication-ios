@@ -117,7 +117,7 @@ public final class SignupViewModel<User: UserType, SessionService: SessionServic
         let emailValidationResult = email.signal.map(credentialsValidator.emailValidator.validate)
         let passwordValidationResult = password.signal.map(credentialsValidator.passwordValidator.validate)
         let passwordConfirmValidationResult = combineLatest(password.signal, passwordConfirmation.signal)
-            .map { $0 == $1 }.map(getPasswordConfirmValidationResultFromEquality)
+.map { $0 == $1 }.map(getPasswordConfirmValidationResultFromEquality)
         
         nameValidationErrors = AnyProperty(initialValue: [], signal: nameValidationResult.map { $0.errors })
         emailValidationErrors = AnyProperty(initialValue: [], signal: emailValidationResult.map { $0.errors })
@@ -126,14 +126,10 @@ public final class SignupViewModel<User: UserType, SessionService: SessionServic
         
         var credentialsAreValid = AnyProperty<Bool>(initialValue: false, signal: emailValidationResult.map { $0.isValid })
             .and(AnyProperty<Bool>(initialValue: false, signal: passwordValidationResult.map { $0.isValid }))
-        if usernameEnabled {
-            credentialsAreValid = credentialsAreValid
-                .and(AnyProperty<Bool>(initialValue: false, signal: nameValidationResult.map { $0.isValid }))
-        }
-        if passwordConfirmationEnabled {
-            credentialsAreValid = credentialsAreValid
-                .and(AnyProperty<Bool>(initialValue: false, signal:passwordConfirmValidationResult.map { $0.isValid }))
-        }
+        credentialsAreValid = usernameEnabled ? credentialsAreValid .and(AnyProperty<Bool>(initialValue: false, signal: nameValidationResult.map { $0.isValid }))
+                                            : credentialsAreValid
+        credentialsAreValid = passwordConfirmationEnabled ? credentialsAreValid .and(AnyProperty<Bool>(initialValue: false, signal:passwordConfirmValidationResult.map { $0.isValid }))
+                                            : credentialsAreValid
         _credentialsAreValid = credentialsAreValid
         self.usernameEnabled = usernameEnabled
         self.passwordConfirmationEnabled = passwordConfirmationEnabled
