@@ -6,9 +6,8 @@
 //  Copyright © 2016 Wolox. All rights reserved.
 //
 
-import Foundation
 
-/**
+/*
     Protocol for handling transition events occured during login.
 */
 public protocol LoginControllerTransitionDelegate {
@@ -20,7 +19,7 @@ public protocol LoginControllerTransitionDelegate {
 }
 
 
-/**
+/*
     Class for configuring the login controller.
     Includes all information required:
         view factory method,
@@ -35,7 +34,7 @@ public final class LoginControllerConfiguration {
     public let delegate: LoginControllerDelegate
     public let transitionDelegate: LoginControllerTransitionDelegate
     
-    /**
+    /*
         Initializes a login controller configuration with the view model,
         delegate, a factory method for the login view and transition 
         delegate for the login controller to use.
@@ -46,15 +45,13 @@ public final class LoginControllerConfiguration {
              to get the login view to use.
              - transitionDelegate: delegate to handle events that fire a
              transition, like selecting registration or recover password.
-             - delegate: delegate which adds behaviour to certain
-             events, like handling a login error or selecting log in option.
+             - delegate: delegate which adds behaviour to certain events,
+             like handling a login error or selecting log in option.
              A default delegate is provided.
      
-        - Returns: A valid configuration
+        - Returns: A valid configuration.
     */
-// swiftlint:disable valid_docs
     init(viewModel: LoginViewModelType,
-// swiftlint:enable valid_docs
         viewFactory: () -> LoginViewType,
         transitionDelegate: LoginControllerTransitionDelegate,
         delegate: LoginControllerDelegate = DefaultLoginControllerDelegate()) {

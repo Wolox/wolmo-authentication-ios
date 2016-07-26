@@ -12,13 +12,19 @@ import Rex
 import enum Result.NoError
 
 
-/**
-    Log In View Controller that takes care of managing the login, from
+/*
+    Login View Controller that takes care of managing the login, from
     validating email and password fields, to binding a login view to the
-    view model and informing the log in controller delegate when certain
+    view model and informing the login controller delegate when certain
     events occur for it to act upon them.
-    If there are more than one errors in a field, the controller presents
-    only the first one in the errors label.
+    If there are more than one validation error in a field, the controller
+    presents only the first one in the errors label.
+ 
+    If wanting to use the default LoginController with some customization,
+    you should not override the `createLoginController` method of the Bootstrapper,
+    but all the others that provide the elements this controller uses. (That is to say,
+    `createLoginView`, `createLoginViewModel`, `createLoginControllerDelegate`
+    and/or `createLoginControllerConfiguration`)
  */
 public final class LoginController: UIViewController {
     
@@ -34,12 +40,8 @@ public final class LoginController: UIViewController {
     private let _keyboardDisplayed = MutableProperty(false)
     private let _activeField = MutableProperty<UITextField?>(.None)
     
-    // This is an internal initializer, because if wanting to use the  default SignupController,
-    // you should not override the `createLoginController` method, but all the others
-    // that provide the elements this controller uses. (That is to say,
-    // `createLoginView`, `createLoginViewModel`, `createLoginControllerDelegate` or
-    // `createLoginControllerConfiguration`)
-    /**
+    
+    /*
         Initializes a login controller with the configuration to use.
      
         Parameters:
@@ -72,9 +74,9 @@ public final class LoginController: UIViewController {
     
     public override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBarHidden = true
         loginView.render()
         bindViewModel()
-        navigationController?.navigationBarHidden = true
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapRecognizer)
     }
@@ -107,6 +109,7 @@ private extension LoginController {
             } else {
                 self._delegate.didFailEmailValidation(self, with: errors)
             }
+            self.loginView.emailTextFieldValid = errors.isEmpty
         }
         if let emailValidationMessageLabel = loginView.emailValidationMessageLabel {
             emailValidationMessageLabel.rex_text <~ _viewModel.emailValidationErrors.signal.map { $0.first ?? " " }
@@ -124,13 +127,14 @@ private extension LoginController {
             } else {
                 self._delegate.didFailPasswordValidation(self, with: errors)
             }
+            self.loginView.passwordTextFieldValid = errors.isEmpty
         }
         if let passwordValidationMessageLabel = loginView.passwordValidationMessageLabel {
             passwordValidationMessageLabel.rex_text <~ _viewModel.passwordValidationErrors.signal.map { $0.first ?? " " }
         }
         if let passwordVisibilityButton = loginView.passwordVisibilityButton {
             passwordVisibilityButton.rex_pressed.value = _viewModel.togglePasswordVisibility
-            _viewModel.showPassword.signal.observeNext { [unowned self] in self.loginView.passwordVisible = $0 }
+            _viewModel.passwordVisible.signal.observeNext { [unowned self] in self.loginView.passwordVisible = $0 }
         }
         loginView.passwordTextField.delegate = self
     }
@@ -229,7 +233,7 @@ private extension LoginController {
         return navBarHeight + statusBarHeight
     }
     
-    /**
+    /*
         As both textfields fit in all devices, it will always show the email
         textfield at the top of the screen.
     */
