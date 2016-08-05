@@ -5,3 +5,6 @@ ci_service: travis_pro
 coverage_access_token: 70TniiTKCtcXa8J6oDCmWG9MYkVrsJCQW
 ignore:
   - AuthenticationTests/*
+  - Authentication/SessionServiceType.swift
+  - Authentication/ViewProtocols.swift
+  - Authentication/*/View/*View.swift
