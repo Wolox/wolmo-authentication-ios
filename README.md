@@ -1,7 +1,7 @@
 WolMo - Authentication iOS
 ==========================
 
-[![Build Status](https://www.bitrise.io/app/af174417431f3fa5.svg?token=NDJI4ZzTuuprOnPb7Ym9LQ)](https://www.bitrise.io/app/af174417431f3fa5#/builds)
+[![Build Status](https://app.bitrise.io/app/af174417431f3fa5.svg?token=NDJI4ZzTuuprOnPb7Ym9LQ)](https://app.bitrise.io/app/af174417431f3fa5#/builds)
 [![CodeStats](http://codestats.wolox.com.ar/organizations/wolox/projects/wolmo-authentication-ios/badge)](http://codestats.wolox.com.ar/organizations/wolox/projects/wolmo-authentication-ios)
 [![GitHub release](https://img.shields.io/github/release/Wolox/wolmo-authentication-ios.svg)](https://github.com/Wolox/wolmo-authentication-ios/releases)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
